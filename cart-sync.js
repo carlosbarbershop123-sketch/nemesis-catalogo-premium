@@ -21,7 +21,7 @@ root.querySelectorAll('.block .sales-cta').forEach(b=>{const section=b.closest('
 root.querySelectorAll('.bio-card .v2-buy').forEach(b=>b.onclick=()=>{add('Biosite personalizado',150);open()});
 const checkout=()=>{const a=rows();if(!a.length)return open();const ph=String(window.NEMESIS_CHECKOUT_PHONE||'').replace(/\D/g,''),msg='Olá! Quero finalizar meu pedido:\n'+a.map(x=>'- '+x.name+' × '+x.qty+' = R$ '+money(lineTotal(x))).join('\n')+'\nTotal: R$ '+money(total());if(ph)window.open('https://wa.me/'+ph+'?text='+encodeURIComponent(msg),'_blank');else alert('O WhatsApp comercial ainda não foi configurado.')};
 panel.querySelector('.nemesis-checkout').onclick=checkout;
-const bottomCheckout=root.querySelector('#v2-whatsapp');if(bottomCheckout)bottomCheckout.onclick=checkout;
+const bottomCheckout=root.querySelector('#v2-whatsapp');if(bottomCheckout){bottomCheckout.textContent='Clique aqui e feche a venda';bottomCheckout.onclick=checkout;}
 document.querySelectorAll('.admin-open,.admin-panel').forEach(x=>x.remove());
 render();
 })();
