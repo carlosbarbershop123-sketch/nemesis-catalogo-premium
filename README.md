@@ -1,13 +1,22 @@
 # NÊMESIS — Catálogo Comercial Premium
-Este diretório é o espaço de trabalho do projeto para Codex.
-## Arquivos
-- AGENTS.md: contexto, regras e critérios de aceitação para agentes.
-- README.md: instruções de início.
-- index.html: colocar aqui a versão Catalogo_Nemesis_Premium_V4.html (arquivo entregue no ChatGPT). A transferência do HTML ainda é pendente.
-## Próximos passos no Codex
-1. Importar o HTML V4 e recursos originais, sem alterar a folha mestre NFC.
-2. Refatorar em componentes e catálogo configurável.
-3. Validar reprodução de quatro vídeos, links, skeleton e edição.
-4. Preparar publicação HTTPS com painel autenticado.
-## Preços
-NFC R$ 59,90 | Cadastro Google R$ 249,90 | Atualização R$ 149,90 | Biosite R$ 149,90.
+
+Catálogo mobile-first para apresentação de soluções NFC, Google e biosite.
+
+## Conteúdo
+
+- `index.html`: apresentação responsiva e carrinho local.
+- `video-plaquinha-nfc.mp4`: vídeo original da apresentação NFC.
+- `folha-mestra-oficial.jpg`: cópia de referência visual; o original não é alterado.
+- `AGENTS.md`: regras do projeto.
+
+## Preços atuais
+
+- Plaquinha NFC + QR Code: R$ 60,00.
+- Linha NFC (Wi‑Fi, cardápio e Instagram): R$ 30,00 por unidade; a partir de 2, R$ 25,00 por unidade.
+- Cadastro no Google: R$ 249,90.
+- Atualização do Google: R$ 149,90.
+- Biosite: R$ 149,90.
+
+## Fluxo
+
+O catálogo apresenta dor → comparação → solução → contratação. A linha NFC permite quantidade e carrinho. O projeto foi separado para futura importação na Lovable e sincronização pelo GitHub.
