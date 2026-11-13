@@ -5,7 +5,7 @@ const assert = require('assert');
   const browser = await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'});
   const page = await browser.newPage({viewport:{width:390,height:844}});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
-  await page.goto('file:///'+path.join(__dirname,'dist','index.html').replace(/\\/g,'/'),{waitUntil:'domcontentloaded',timeout:60000});
+  await page.goto(process.argv[2]||('file:///'+path.join(__dirname,'dist','index.html').replace(/\\/g,'/')),{waitUntil:'domcontentloaded',timeout:60000});
   await page.locator('#nemesis-cart-toggle').waitFor({timeout:30000});
   const cart=page.locator('#nemesis-cart-panel');
   await page.locator('.nfc-order .nemesis-add-control').click();
