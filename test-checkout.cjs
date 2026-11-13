@@ -10,6 +10,7 @@ const assert = require('assert');
   const cart=page.locator('#nemesis-cart-panel');
   await page.locator('.nfc-order .nemesis-add-control').click();
   assert.match(await cart.locator('.nemesis-cart-total').innerText(),/60,00/);
+  await page.locator('.nfc-order .nemesis-add-control').click();
   await page.locator('.nfc-product .add-nfc').first().click();
   await page.locator('.nfc-product .add-nfc').first().click();
   for(const name of ['Cadastro no Google','Atualização do Google','Biosite personalizado']){
@@ -18,13 +19,24 @@ const assert = require('assert');
   }
   const names=await cart.locator('.nemesis-cart-row').allInnerTexts();
   for(const name of ['Plaquinha NFC','Wi‑Fi na mesa','Cadastro no Google','Atualização do Google','Biosite personalizado']) assert(names.some(x=>x.includes(name)),name+' missing');
-  assert.match(await cart.locator('.nemesis-cart-total').innerText(),/660,00/);
+  assert.match(await cart.locator('.nemesis-cart-total').innerText(),/720,00/);
   await cart.locator('[data-minus]').first().click();
-  assert.match(await cart.locator('.nemesis-cart-total').innerText(),/600,00/);
+  assert.match(await cart.locator('.nemesis-cart-total').innerText(),/660,00/);
   const toggle=page.locator('#nemesis-cart-toggle');
   await toggle.hover();const first=await toggle.boundingBox();await page.waitForTimeout(300);const second=await toggle.boundingBox();
   assert(Math.abs(first.x-second.x)<1&&Math.abs(first.y-second.y)<1,'cart trembles on hover');
+  const checkoutUrl=await page.evaluate(() => {
+    let opened='';
+    window.open=url=>{opened=url;return null};
+    document.querySelector('.nemesis-checkout').click();
+    return opened;
+  });
+  assert(checkoutUrl.startsWith('https://wa.me/5581988365763?text='),'checkout WhatsApp URL');
+  const message=decodeURIComponent(checkoutUrl.split('?text=')[1]);
+  for(const name of ['Plaquinha NFC','Wi‑Fi na mesa','Cadastro no Google','Atualização do Google','Biosite personalizado']) assert(message.includes(name),name+' missing from WhatsApp order');
+  assert(message.includes('Wi‑Fi na mesa × 2')&&message.includes('Total: R$ 660,00'),'checkout quantities and total');
+  assert.match(await page.locator('#v2-selected').innerText(),/Carrinho: /);
   assert(!errors.length,'page errors: '+errors.join('; '));
-  console.log('PASS: 5 produtos, soma, redução, carrinho estável no hover');
+  console.log('PASS: 5 produtos, soma, redução, carrinho estável e pedido WhatsApp');
   await browser.close();
 })().catch(e=>{console.error(e);process.exit(1)});
